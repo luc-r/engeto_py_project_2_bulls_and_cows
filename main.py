@@ -166,6 +166,7 @@ while bulls != 4:
     print(line)
 
 time_end = time()                                       # end time point
+assert time_start is not None, "Start time not set"
 time_elapsed = time_end - time_start                    # guessing time
 
 
