@@ -51,10 +51,10 @@ def check_user_input(user_input: str) -> str | None:
     Validates the user input string.
 
     The input is valid if:
-    - It consists of exactly 4 characters.
-    - Digits are unique (no duplicates).
-    - The first digit is not zero.
     - All characters are digits.
+    - It consists of exactly 4 characters.
+    - The first digit is not zero.
+    - Digits are unique (no duplicates).
 
     Parameters:
         user_input (str): User's input as a string.
@@ -63,14 +63,14 @@ def check_user_input(user_input: str) -> str | None:
         str: An error message if the input is invalid.
         None: If the input is valid.
     """
-    if len(user_input) != 4:                                    # input lenght control
-        return "Enter a four-digit number."
-    if len(set(user_input)) != len(user_input):                 # unique digits control
-        return "Enter unique, non-repeating digits."
-    if user_input[0] == "0":                                    # not starting with 0 control
-        return "Enter a number that does not start with zero."      
     if not user_input.isdigit():                                # only digits control
         return "Enter only digits."
+    if len(user_input) != 4:                                    # input lenght control
+        return "Enter a four-digit number."
+    if user_input[0] == "0":                                    # not starting with 0 control
+        return "Enter a number that does not start with zero."  
+    if len(set(user_input)) != len(user_input):                 # unique digits control
+        return "Enter unique, non-repeating digits."    
     return None
 
 
