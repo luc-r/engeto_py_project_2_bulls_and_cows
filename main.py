@@ -11,6 +11,7 @@ email: lucka.robosova@gmail.com
 # LIBRARIES
 
 from random import sample
+from time import time
 
 
 
@@ -134,13 +135,41 @@ print(line)
 
 
 
-# user input
+# the bulls and cows game
 
-while True:
-    user_input = input("Enter a number: ")
-    error_message = check_user_input(user_input)    # check the correct user input format
-    if error_message is None:                       # continue the program if the input is valid
-        break
-    print(error_message)                            # print error message on invalid input
-
+print("Enter a number: ")                               # instruction
 print(line)
+
+
+
+bulls = 0
+time_start = None
+
+while bulls != 4:
+    user_input = input(">>> ")                          # user input
+
+    error_message = check_user_input(user_input)        # check the correct user input format
+    if error_message is not None:                       # continue the program if the input is valid
+        print(error_message)                            # print error message on invalid input
+        continue
+
+    if time_start is None:                              # start time point
+        time_start = time()
+
+    bulls = count_bulls(user_input, generated_number)   # count number of bulls in guess
+    cows = count_cows(user_input, generated_number)     # count number of cows in guess
+
+    bulls_word = "bull" if bulls == 1 else "bulls"      # flexible name by number
+    cows_word = "cow" if cows == 1 else "cows"
+
+    print(f"{bulls} {bulls_word}, {cows} {cows_word}")  # show the count of bulls and cows in guess
+    print(line)
+
+time_end = time()                                       # end time point
+time_elapsed = time_end - time_start                    # guessing time
+
+
+
+print(f"Congratulations! You've guessed the right number in {time_elapsed:.1f} seconds.")
+print(line)
+print("Well done!")
