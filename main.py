@@ -26,9 +26,12 @@ line = "-" * 50
 
 # random 4 digit number generator (function)
 
-def generate_random_number():
+def generate_random_number() -> str:
     """
-    This function creates a four-digit string with unique numbers not starting with 0.
+    Generates a random 4-digit string with unique digits where the first digit is not zero.
+
+    Returns:
+        str: The generated 4-digit number as a string.
     """
     first_number = sample(range(1, 10), 1)[0]               # pick first number from 1 to 9
     numbers = list(range(0, 10))                    
@@ -42,14 +45,22 @@ def generate_random_number():
 
 # user input checker (function)
 
-def check_user_input(user_input: str):
+def check_user_input(user_input: str) -> str | None:
     """
-    This function checks whether the user input has the correct format 
-    - whether it is exactly 4 digits, does not contain duplicates, does 
-    not start with a zero, and does not contain non-digit characters.
+    Validates the user input string.
 
-    If there is an error in the input, it returns an error message. 
-    If the input is OK, it returns no value.
+    The input is valid if:
+    - It consists of exactly 4 characters.
+    - Digits are unique (no duplicates).
+    - The first digit is not zero.
+    - All characters are digits.
+
+    Parameters:
+        user_input (str): User's input as a string.
+
+    Returns:
+        str: An error message if the input is invalid.
+        None: If the input is valid.
     """
     if len(user_input) != 4:                                    # input lenght control
         return "Enter a four-digit number."
@@ -60,6 +71,44 @@ def check_user_input(user_input: str):
     if not user_input.isdigit():                                # only digits control
         return "Enter only digits."
     return None
+
+
+
+def count_bulls(user_input: str, generated_number: str) -> int:
+    """
+    Counts the number of bulls in the user's guess.
+    A 'bull' is a correct digit in the correct position.
+
+    Parameters:
+        user_input (str): The user's guess as a 4-digit string.
+        generated_number (str): The generated 4-digit number as string.
+
+    Returns:
+        int: Number of bulls.
+    """
+    bulls = sum(1 for i in range(4) if user_input[i] == generated_number[i])
+    return bulls
+
+
+
+def count_cows(user_input: str, generated_number: str) -> int:
+    """
+    Counts the number of cows in the user's guess.
+    A 'cow' is a correct digit in the wrong position.
+
+    Parameters:
+        user_input (str): The user's guess as a 4-digit string.
+        generated_number (str): The generated 4-digit number as string.
+        
+    Returns:
+        int: Number of cows.
+    """
+    cows = 0
+    for i in range(4):
+        user_digit = user_input[i]
+        if user_digit in generated_number and user_digit != generated_number[i]:
+            cows += 1
+    return cows
 
 
 
